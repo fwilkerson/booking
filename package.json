@@ -1,0 +1,29 @@
+{
+  "name": "booking",
+  "version": "1.0.0",
+  "description": "A conference room booking demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fwilkerson/booking.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fwilkerson/booking/issues"
+  },
+  "homepage": "https://github.com/fwilkerson/booking#readme",
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "jest": "^23.4.2",
+    "redux": "^4.0.0",
+    "redux-saga": "^0.16.0"
+  },
+  "jest": {
+    "testURL": "http://localhost/"
+  }
+}
