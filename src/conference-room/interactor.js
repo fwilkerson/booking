@@ -6,10 +6,14 @@ import { actionCreatorFactory, createReducer } from "../lib/utils/interactor";
 const REQUEST_APPOINTMENTS = "REQUEST_APPOINTMENTS";
 const RECEIVED_APPOINTMENTS = "RECEIVED_APPOINTMENTS";
 
-const initialState = { appointments: [] };
+const initialState = { appointments: [], isBusy: false };
 
 export const conferenceRoom = createReducer(initialState, {
-  [RECEIVED_APPOINTMENTS]: (_, { payload }) => ({ appointments: payload })
+  [RECEIVED_APPOINTMENTS]: (_, payload) => ({
+    appointments: payload,
+    isBusy: false
+  }),
+  [REQUEST_APPOINTMENTS]: () => ({ isBusy: true })
 });
 
 // external action creators to be dispatched by our views

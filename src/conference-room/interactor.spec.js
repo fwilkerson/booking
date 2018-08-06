@@ -8,19 +8,23 @@ import { commands, conferenceRoom, saga } from "./interactor";
 jest.spyOn(mockDataService, "fetchAppointments");
 
 describe("Conference Room", () => {
+  const today = new Date().toISOString();
+  const mockAppointmentData = [{ date: today, who: "Frank Wilkerson" }];
   const mockStore = initializeStore(combineReducers({ conferenceRoom }), saga);
-  const date = new Date().toISOString();
-  const mockAppointmentData = [{ date, who: "Frank Wilkerson" }];
-  mockDataService.fetchAppointments.mockResolvedValue(mockAppointmentData);
 
   it("should request appointments for a given day", async () => {
-    mockStore.dispatch(commands.REQUEST_APPOINTMENTS(date));
-    expect(mockDataService.fetchAppointments).toHaveBeenCalledWith(date);
+    mockDataService.fetchAppointments.mockResolvedValue(mockAppointmentData);
+    mockStore.dispatch(commands.REQUEST_APPOINTMENTS(today));
+
+    let state = mockStore.getState();
+    expect(state.conferenceRoom.isBusy).toBe(true);
+    expect(mockDataService.fetchAppointments).toHaveBeenCalledWith(today);
 
     await nexFrame();
 
-    const { conferenceRoom } = mockStore.getState();
-    expect(conferenceRoom.appointments).toEqual(mockAppointmentData);
+    state = mockStore.getState();
+    expect(state.conferenceRoom.isBusy).toBe(false);
+    expect(state.conferenceRoom.appointments).toEqual(mockAppointmentData);
   });
 
   it.skip("should create an appointment for a given date, time and duration", () => {});

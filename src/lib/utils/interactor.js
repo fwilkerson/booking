@@ -11,7 +11,7 @@ export function actionCreatorFactory(...types) {
 export function createReducer(initialState, handlers) {
   return (state = initialState, action) => {
     const handler = handlers[action.type];
-    const partialUpdate = handler && handler(state, action);
+    const partialUpdate = handler && handler(state, action.payload);
     if (!partialUpdate) return state;
     else return { ...state, ...partialUpdate };
   };
